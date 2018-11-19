@@ -1,3 +1,6 @@
+# Projet pour le Waq junior en avril 2018
+# par Francois Belleau pour le projet qliic.org
+
 #include <Adafruit_NeoPixel.h>
 
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(3, 8, NEO_GRB + NEO_KHZ800);
