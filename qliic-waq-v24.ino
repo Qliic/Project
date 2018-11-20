@@ -1,4 +1,4 @@
-// qliic-waq-v23.ino
+// qliic-waq-v24.ino
 // par Francois Belleau pour le projet http://Qliic.org
 
 #define PIN_COM     A0
@@ -8,14 +8,29 @@
 #define PIN_TRIG  2
 #define PIN_ECHO  3
 
-#define PIN_RGB1  6
-#define PIN_RGB2  7
+#define PIN_RGB1  7
+#define PIN_RGB2  6
 
 #define PIN_SERVO2  10
 #define PIN_SERVO1  11
 
 #define PIN_PIEZO   12
 #define PIN_LED     13
+
+#define NOTE_A3  220
+#define NOTE_B3  247
+#define NOTE_C4  262
+#define NOTE_D4  294
+#define NOTE_E4  330
+#define NOTE_F4  349
+#define NOTE_G4  392
+#define NOTE_A4  440
+#define NOTE_B4  494
+#define NOTE_C5  523
+#define NOTE_D5  587
+#define NOTE_E5  659
+#define NOTE_F5  698
+#define NOTE_G5  784
 
 #include <Servo.h>
 Servo Servo1, Servo2;
@@ -38,6 +53,7 @@ String couleurLettre = "ROJVTLM";
 
 String noteNom0[] = {"DO","RE","MI","FA","SOL","LA","SI","do","re","mi","fa","sol","la","si"};
 String noteLettre[] = {"A","B","C","D","E","F","G","a","b","c","d","e","f","g","g"};
+int noteFrequence[] = {NOTE_A3,NOTE_B3,NOTE_C4,NOTE_D4,NOTE_E4,NOTE_F4,NOTE_G4,NOTE_A4,NOTE_B4,NOTE_C5,NOTE_D5,NOTE_E5,NOTE_F5,NOTE_G5};
 
 int red[] =   {000,000,255,255,255,255,255,200,150,100,000,000,000,000,000,000,000,000,000,100,150,200,255,255,255,255};
 int green[] = {000,000,000,100,150,200,255,255,255,255,255,255,255,255,255,200,150,100,000,000,000,000,000,000,000,000};
@@ -47,7 +63,7 @@ int distanceLu, analogLu, analog0, couleur, n0, digital1, digital2, compteur;
 int servo1, servo2, servoPos1, servoPos2;
 long SR04_duration;
 
-int luminosite = 4;
+int luminosite = 8;
 
 char* asciiCode = "                                 ! #$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[ ]^_`abcdefghijklmnopqrstuvwxyz{|}~";
 String note;
@@ -59,7 +75,7 @@ void setup() {
   pixel2.begin();
 
   Serial.begin(9600);
-  Serial.println("Allo toi ! On Qliic ensemble ?");
+  Serial.println("Allo toi ! On Qliic ensemble ? (v2.3)");
 
   LCD.init();
   LCD.backlight();
@@ -153,47 +169,89 @@ void interpreteur() {
     delay(500);
   }
 
+  int delay_tone = 250;
+
+  if (lettre == "A") {
+    tone(PIN_PIEZO, noteFrequence[0],delay_tone); delay(delay_tone);
+  } else if (lettre == "B") {
+    tone(PIN_PIEZO, noteFrequence[1],delay_tone); delay(delay_tone);
+  } else if (lettre == "C") {
+    tone(PIN_PIEZO, noteFrequence[2],delay_tone); delay(delay_tone);
+  } else if (lettre == "D") {
+    tone(PIN_PIEZO, noteFrequence[3],delay_tone); delay(delay_tone);
+  } else if (lettre == "E") {
+    tone(PIN_PIEZO, noteFrequence[4],delay_tone); delay(delay_tone);
+  } else if (lettre == "F") {
+    tone(PIN_PIEZO, noteFrequence[5],delay_tone); delay(delay_tone);
+  } else if (lettre == "G") {
+    tone(PIN_PIEZO, noteFrequence[6],delay_tone); delay(delay_tone);
+  } else if (lettre == "a") {
+    tone(PIN_PIEZO, noteFrequence[7],delay_tone); delay(delay_tone);
+  } else if (lettre == "b") {
+    tone(PIN_PIEZO, noteFrequence[8],delay_tone); delay(delay_tone);
+  } else if (lettre == "c") {
+    tone(PIN_PIEZO, noteFrequence[9],delay_tone); delay(delay_tone);
+  } else if (lettre == "d") {
+    tone(PIN_PIEZO, noteFrequence[10],delay_tone); delay(delay_tone);
+  } else if (lettre == "e") {
+    tone(PIN_PIEZO, noteFrequence[11],delay_tone); delay(delay_tone);
+  } else if (lettre == "f") {
+    tone(PIN_PIEZO, noteFrequence[12],delay_tone); delay(delay_tone);
+  } else if (lettre == "g") {
+    tone(PIN_PIEZO, noteFrequence[13],delay_tone); delay(delay_tone);
+  } else if (lettre == "s") {
+    delay(delay_tone);
+  }
+
+
   if (lettre == "n") {
     couleur = 0;
     pixel1.setPixelColor(0, pixel1.Color(red[couleur]/luminosite, green[couleur]/luminosite, blue[couleur]/luminosite));
     pixel1.show();
+    delay(delay_tone);
   }
   if (lettre == "r") {
     couleur = 2;  
     pixel1.setPixelColor(0, pixel1.Color(red[couleur]/luminosite, green[couleur]/luminosite, blue[couleur]/luminosite));
     pixel1.show();
+    delay(delay_tone);
   }
   if (lettre == "v") {
     couleur = 10;
     pixel1.setPixelColor(0, pixel1.Color(red[couleur]/luminosite, green[couleur]/luminosite, blue[couleur]/luminosite));
     pixel1.show();
+    delay(delay_tone);
   }
   if (lettre == "l") {
     couleur = 18;
     pixel2.setPixelColor(0, pixel1.Color(red[couleur]/luminosite, green[couleur]/luminosite, blue[couleur]/luminosite));
     pixel2.show();
+    delay(delay_tone);
   }
   if (lettre == "N") {
     couleur = 0;
     pixel2.setPixelColor(0, pixel2.Color(red[couleur]/luminosite, green[couleur]/luminosite, blue[couleur]/luminosite));
     pixel2.show();
+    delay(delay_tone);
   }
   if (lettre == "R") {
     couleur = 2;  
     pixel2.setPixelColor(0, pixel2.Color(red[couleur]/luminosite, green[couleur]/luminosite, blue[couleur]/luminosite));
     pixel2.show();
+    delay(delay_tone);
   }
   if (lettre == "V") {
     couleur = 10;
     pixel2.setPixelColor(0, pixel2.Color(red[couleur]/luminosite, green[couleur]/luminosite, blue[couleur]/luminosite));
     pixel2.show();
+    delay(delay_tone);
   }
   if (lettre == "L") {
     couleur = 18;
     pixel2.setPixelColor(0, pixel2.Color(red[couleur]/luminosite, green[couleur]/luminosite, blue[couleur]/luminosite));
     pixel2.show();
+    delay(delay_tone);
   }
-  delay(500);
 }
 
 void loop() {
@@ -267,7 +325,7 @@ void loop() {
   
   if (digital1) {
     compteur++;
-    tone(PIN_PIEZO, map(analogLu,0,1023, 110, 880));
+    tone(PIN_PIEZO, noteFrequence[map(analogLu,0,1023, 0, 13)]);
     led13 = ! led13;
     digitalWrite(PIN_LED, led13);
     delay(100);
